@@ -13,7 +13,7 @@ function App() {
         const { data } = await axios.get("http://www.omdbapi.com/?s=guardians&apikey=6451d5a9"); 
         if (data && data.Search) {
           setMovies(data.Search); 
-          // console.log(data);
+          console.log(data.Search);
         }
       } catch (error) {
         console.error('Error fetching movies:', error);
