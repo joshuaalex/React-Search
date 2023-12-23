@@ -44,6 +44,10 @@ body {
   width: 400px;
   max-width: 100%; 
 }
+.latest-queries{
+  color: var(--primary-text-color);
+  padding-left: 50px;
+}
 
 .movies-container{
   display: flex;

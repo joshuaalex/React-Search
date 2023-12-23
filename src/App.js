@@ -4,17 +4,19 @@ import axios from 'axios';
 import { MovieCard } from './components/MovieCard/MovieCard';
 
 function App() {
-
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
+  const [latestQueries, setLatestQueries] = useState([]);
 
   const fetchMovies = async (searchQuery) => {
     try {
       const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchQuery}&apikey=6451d5a9`);
       if (data && data.Search) {
         setMovies(data.Search);
-        console.log(data.Search);
+        if (searchQuery) {
+          updateLatestQueries(searchQuery);
+        }
       } else {
         setMovies([]);
       }
@@ -26,6 +28,13 @@ function App() {
   };
 
   useEffect(() => {
+    const storedQueries = localStorage.getItem('latestQueries');
+    if (storedQueries) {
+      setLatestQueries(JSON.parse(storedQueries));
+    }
+  }, []);
+
+  useEffect(() => {
     if (searchTerm.trim() !== '') {
       fetchMovies(searchTerm);
     }
@@ -33,6 +42,12 @@ function App() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const updateLatestQueries = (query) => {
+    const updatedQueries = [query, ...latestQueries.filter(item => item !== query)].slice(0, 5);
+    setLatestQueries(updatedQueries);
+    localStorage.setItem('latestQueries', JSON.stringify(updatedQueries));
   };
 
   return (
@@ -50,6 +65,14 @@ function App() {
         />
       </div>
       {error && <p>{error}</p>}
+      <div className="latest-queries">
+        <h2>Latest Searches:</h2>
+        <ul>
+          {latestQueries.map((query, index) => (
+            <li key={index}>{query}</li>
+          ))}
+        </ul>
+      </div>
       <div className="movies-container">
         {movies.length > 0 ? (
           movies.map(movie => (
