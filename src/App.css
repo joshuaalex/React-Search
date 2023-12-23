@@ -16,8 +16,38 @@ body {
   overflow-x: hidden;
 }
 
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  position: fixed;
+  width: 100vw;
+  z-index: 1;
+  background-color: var(--background-color);
+}
+
+.heading-1{
+  color: var(--primary-text-color);
+}
+.search-container {
+  padding-top: 80px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center; 
+}
+
+.search-input {
+  padding: 10px; 
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 400px;
+  max-width: 100%; 
+}
+
 .movies-container{
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  padding: 2rem 1rem 3rem 1rem;
 }
