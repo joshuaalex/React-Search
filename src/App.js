@@ -11,7 +11,7 @@ function App() {
 
   const fetchMovies = async (searchQuery) => {
     try {
-      const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchQuery}&apikey=6451d5a9`);
+      const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchQuery}&apikey=6451d5a9`); // implement read from .env
       if (data && data.Search) {
         setMovies(data.Search);
         if (searchQuery) {
